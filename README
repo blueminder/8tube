@@ -4,4 +4,4 @@ Author: Enrique Santos (__me__at__enriquesantos__dot__net__)
 
 8tube is a Google Chrome Extension that automatically pauses the song you are listening to on 8tracks when a YouTube video is played. Once the YouTube video is no longer playing, 8tube brings you right back to your 8tracks listening experience. No dead air!
 
-This extension is based off of Marco Munizaga's TubeShark which unlocks the same functionality for GrooveShark users.
+This extension is based off of Marco Munizaga's TubeShark (https://github.com/MarcoPolo/tubeShark) which unlocks the same functionality for GrooveShark users.
