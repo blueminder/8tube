@@ -1,30 +1,30 @@
 {
-	"name": "tubeShark",
-	"version": "3.0",
+	"name": "8tube",
+	"version": "1.0",
 
-	"description": "Automagically controls grooveshark when watching youtube videos!",
+	"description": "Pauses and resumes 8tracks session while watching videos on YouTube.",
 	"icons": {
-		"128": "img/tubeShark.png"
+		"128": "img/8tube.png"
 	},
 	"permissions": [
 		"tabs",
 		"notifications",
 		"contextMenus",
-		"http://*.grooveshark.com/",
-		"*://grooveshark.com/*",
+		"http://*.8tracks.com/",
+		"*://8tracks.com/*",
 		"http://*.youtube.com/"
 		
 	],
 	"background_page": "html/bg.html",
 	"content_scripts": [
 		{
-			"matches": ["*://grooveshark.com/*"],
-			"js": ["js/injectShark.js"],
+			"matches": ["*://8tracks.com/*"],
+			"js": ["js/injectET.js"],
 			"run_at": "document_end",
 			"all_frames": true
 		},{
 			"matches": ["*://www.youtube.com/*"],
-			"js": ["js/injectTube.js"],
+			"js": ["js/injectYT.js"],
 			"all_frames": true
 		}
 	]

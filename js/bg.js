@@ -1,29 +1,29 @@
-console.log("it lives LOL");
+console.log("8tube starting...");
 tabs = 1;
-gsUrl = "grooveshark.com";
-gsTab=0;
-isGSPaused = true;
+etUrl = "8tracks.com";
+etTab = 0;
+isETPaused = true;
 currentTab = 0;
 
 
 function releaseTheShark(){
-    chrome.tabs.executeScript(gsTab, {'file':'js/injectShark.js'});
+    chrome.tabs.executeScript(etTab, {'file':'js/injectET.js'});
 }
 function findId(){
     chrome.tabs.getAllInWindow(this.tab, function(tabso){console.log(tabso);tabs=tabso;});
 
     for(i in tabs){
-        if(tabs[i].url.indexOf(gsUrl)!=-1){
-            console.log('the GS tab is ' + tabs[i].id);
-            gsTab=tabs[i].id;
-            //this.gsTab=tabs[i].id;
+        if(tabs[i].url.indexOf(etUrl)!=-1){
+            console.log('the 8tracks tab is ' + tabs[i].id);
+            etTab=tabs[i].id;
+            //this.etTab=tabs[i].id;
             }
         }
 
-        if(gsTab!=0) console.log('the shark has been found');
-        else console.log('no such luck, sorry bud');
+        if(etTab!=0) console.log('8tracks has been found');
+        else console.log('8tracks instance not found');
 
-        if(gsTab!=0) clearInterval(intervalId);
+        if(etTab!=0) clearInterval(intervalId);
 }
 
 
@@ -36,35 +36,35 @@ chrome.extension.onRequest.addListener(
               
               chrome.tabs.getSelected(null, function(tab) { currentTab=tab.id; });
 
-				if (request.gsTab == 'findMePlz'){
-					console.log('finding the shark, plz hold')
+				if (request.etTab == 'findMePlz'){
+					console.log('finding 8tracks, please wait')
 					intervalId=setInterval(findId, 100);
 						//findId();
 				}
 
-				if (request.gsTab == 'findActive'){
-                    gsTab = sender.tab.id;
-                    //clear the isGSPaused boolean
-                    if(currentTab == gsTab){
-                        isGSPaused = false;
+				if (request.etTab == 'findActive'){
+                    etTab = sender.tab.id;
+                    //clear the isETPaused boolean
+                    if(currentTab == etTab){
+                        isETPaused = false;
                     }
-                    console.log('Active GS is ', gsTab);
+                    console.log('Active ET is ', etTab);
                 }
 
-				if (gsTab==0){
-				   console.log('GS has not been opened');
+				if (etTab==0){
+				   console.log('8tracks has not been opened');
 				}
-                if (request.gsTab == 'isGSPaused'){
+                if (request.etTab == 'isETPaused'){
                     //if the sender of the request and the
-                    if(currentTab == gsTab){
-                        isGSPaused = true;
+                    if(currentTab == etTab){
+                        isETPaused = true;
                     }
                 }
-				if (!isGSPaused && request.command == "resumeShark"){
-                    chrome.tabs.sendRequest(gsTab, {command: "resumeShark"});
+				if (request.command == "resumeET"){
+                    chrome.tabs.sendRequest(etTab, {command: "resumeET"});
                     sendResponse({});
-		        }else if ( request.command == "pauseShark"){
-                    chrome.tabs.sendRequest(gsTab, {command: "pauseShark"});
+		        }else if ( request.command == "pauseET"){
+                    chrome.tabs.sendRequest(etTab, {command: "pauseET"});
                     sendResponse({});
 				}else{
                     sendResponse({}); // snub them.
